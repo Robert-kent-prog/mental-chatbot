@@ -1,26 +1,29 @@
 // server/app.js
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const chatRoutes = require('./routes/chat');
+import express, { json } from 'express';
+import { connect, connection } from 'mongoose';
+import cors from 'cors';
+import chatRoutes from './routes/chat';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
-app.use(express.json());
+app.use(json());
 
 // Routes
 app.use('/api/chat', chatRoutes);
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.error(err));
+connect(process.env.MONGO_URI);
+const db = connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+db.once('open', () => {
+    console.log('Successfully Connected to MongoDB...');
+});
+
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // Start server
 app.listen(PORT, () => {
