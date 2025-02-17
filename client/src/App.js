@@ -15,8 +15,8 @@ function Sidebar() {
       <div className="sidebar-header">Mental Health ChatBot</div>
       <div className="sidebar-content">
         <div className="sidebar-item">Home</div>
-        <div className="sidebar-item">Settings</div>
-        <div className="sidebar-item">About</div>
+        <div className="sidebar-item">New Chat</div>
+        <div className="sidebar-item">History</div>
       </div>
       <div className="sidebar-footer">© 2023 Mental Health ChatBot</div>
     </div>

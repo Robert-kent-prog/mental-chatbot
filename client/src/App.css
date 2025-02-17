@@ -32,7 +32,7 @@ body {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 
 .sidebar-header {
@@ -44,7 +44,12 @@ body {
 .sidebar-item {
   margin-bottom: 10px;
   cursor: pointer;
+  font-size: large;
   transition: background-color 0.3s ease;
+}
+
+.sidebar-content {
+  margin-bottom: auto;
 }
 
 .sidebar-item:hover {
