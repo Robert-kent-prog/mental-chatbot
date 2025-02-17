@@ -9,6 +9,20 @@ const systemMessage = {
   content: "Explain things like you're talking to a software professional with 2 years of experience.",
 };
 
+function Sidebar() {
+  return (
+    <div className="sidebar">
+      <div className="sidebar-header">Mental Health ChatBot</div>
+      <div className="sidebar-content">
+        <div className="sidebar-item">Home</div>
+        <div className="sidebar-item">Settings</div>
+        <div className="sidebar-item">About</div>
+      </div>
+      <div className="sidebar-footer">© 2023 Mental Health ChatBot</div>
+    </div>
+  );
+}
+
 function App() {
   const [messages, setMessages] = useState([
     {
@@ -34,7 +48,6 @@ function App() {
     };
     const newMessages = [...messages, newMessage];
     setMessages(newMessages);
-
     setIsTyping(true);
     await processMessageToChatGPT(newMessages);
   };
@@ -74,7 +87,8 @@ function App() {
 
   return (
     <div className="App">
-      <div style={{ position: "relative", height: "800px", width: "700px" }}>
+      <div className="chat-container">
+        <Sidebar />
         <MainContainer>
           <ChatContainer>
             <MessageList
@@ -82,7 +96,14 @@ function App() {
               typingIndicator={isTyping && <TypingIndicator content="ChatGPT is typing" />}
             >
               {messages.map((message, i) => (
-                <Message key={i} model={message} />
+                <Message
+                  key={i}
+                  model={{
+                    message: message.message,
+                    direction: message.sender === "user" ? "outgoing" : "incoming",
+                    id: i.toString(),
+                  }}
+                />
               ))}
             </MessageList>
             <MessageInput placeholder="Type message here" onSend={handleSend} />
